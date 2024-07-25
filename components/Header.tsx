@@ -4,7 +4,7 @@ import React from "react";
 
 const Header = ({children}: HeaderProps) => {
   return (
-    <div className="Header">
+    <div className="Header flex items-center">
       <Link href="/" className="md:flex-1">
         <Image
           src="/assets/icons/logo.svg"
