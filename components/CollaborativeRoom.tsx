@@ -6,6 +6,7 @@ import React from "react";
 import { Editor } from "@/components/editor/Editor";
 import Header from "@/components/Header";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
+import ActiveCollborators from "./ActiveCollborators";
 
 const CollaborativeRoom = () => {
   return (
@@ -16,12 +17,15 @@ const CollaborativeRoom = () => {
             <div className="flex w-fit items-center justify-center gap-2">
               <p className="document-title mx-2">Share</p>
             </div>
-            <SignedOut>
-              <SignInButton />
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
+            <div className="flex w-full flex-1 justify-end gap-2 sm:gap-3">
+              <ActiveCollborators />
+              <SignedOut>
+                <SignInButton />
+              </SignedOut>
+              <SignedIn>
+                <UserButton />
+              </SignedIn>
+            </div>
           </Header>
           <Editor />
         </div>
