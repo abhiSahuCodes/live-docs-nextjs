@@ -1,7 +1,7 @@
 "use client";
 
 import { ClientSideSuspense, RoomProvider } from "@liveblocks/react/suspense";
-import React, {useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { Editor } from "@/components/editor/Editor";
 import Header from "@/components/Header";
@@ -14,7 +14,7 @@ const CollaborativeRoom = ({
   roomId,
   roomMetadata,
 }: CollaborativeRoomProps) => {
-  const currentUserType = 'editor';
+  const currentUserType = "editor";
 
   const [documentTitle, setDocumentTitle] = useState(roomMetadata.title);
   const [editing, setEditing] = useState(false);
@@ -23,18 +23,40 @@ const CollaborativeRoom = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const updateTitleHandler = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    
+  const updateTitleHandler = async (
+    e: React.KeyboardEvent<HTMLInputElement>
+  ) => {
+
   };
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node)
+      ) {
+        setEditing(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <RoomProvider id={roomId}>
       <ClientSideSuspense fallback={<div>Loading…</div>}>
         <div className="collaborative-room">
           <Header>
-            <div ref={containerRef} className="flex w-fit items-center justify-center gap-2">
+            <div
+              ref={containerRef}
+              className="flex w-fit items-center justify-center gap-2"
+            >
               {editing && !loading ? (
-                <Input 
-                type="text"
+                <Input
+                  type="text"
                   value={documentTitle}
                   ref={inputRef}
                   placeholder="Enter title"
@@ -48,15 +70,16 @@ const CollaborativeRoom = ({
                   <p className="document-title">{documentTitle}</p>
                 </>
               )}
-             { currentUserType === 'editor' && !editing && (
-                <Image 
+              {currentUserType === "editor" && !editing && (
+                <Image
                   src="/assets/icons/edit.svg"
                   alt="edit"
                   width={24}
                   height={24}
                   onClick={() => setEditing(true)}
                   className="pointer"
-                />)}
+                />
+              )}
             </div>
             <div className="flex w-full flex-1 justify-end gap-2 sm:gap-3">
               <ActiveCollborators />
