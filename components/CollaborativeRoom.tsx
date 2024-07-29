@@ -9,6 +9,7 @@ import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import ActiveCollborators from "./ActiveCollborators";
 import { Input } from "./ui/input";
 import Image from "next/image";
+import { updateDocument } from "@/lib/actions/room.actions";
 
 const CollaborativeRoom = ({
   roomId,
@@ -26,7 +27,23 @@ const CollaborativeRoom = ({
   const updateTitleHandler = async (
     e: React.KeyboardEvent<HTMLInputElement>
   ) => {
+    if(e.key === 'Enter') {
+      setLoading(true);
 
+      try {
+        if(documentTitle !== roomMetadata.title) {
+          const updatedDocument = await updateDocument(roomId, documentTitle);
+          
+          if(updatedDocument) {
+            setEditing(false);
+          }
+        }
+      } catch (error) {
+        console.error(error);
+      }
+
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
