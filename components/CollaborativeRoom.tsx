@@ -54,13 +54,20 @@ const CollaborativeRoom = ({
       ) {
         setEditing(false);
       }
+      updateDocument(roomId, documentTitle);
     };
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [roomId, documentTitle]);
+
+  useEffect(() => {
+    if (editing && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [editing]);
 
   return (
     <RoomProvider id={roomId}>
