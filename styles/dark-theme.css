@@ -82,6 +82,7 @@ body {
   top: 40px;
   left: 40px;
   font-size: 15px;
+  -webkit-user-select: none;
   user-select: none;
   display: inline-block;
   pointer-events: none;
@@ -395,6 +396,7 @@ pre::-webkit-scrollbar-thumb {
   display: flex;
   width: 20px;
   height: 20px;
+  -webkit-user-select: none;
   user-select: none;
   margin-right: 8px;
   line-height: 16px;
