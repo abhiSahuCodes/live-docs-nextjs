@@ -7,12 +7,14 @@
 
 @import "../styles/dark-theme.css";
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 /* ========================================== TAILWIND STYLES */
 @layer base {
   :root {
     background: #09111f;
     color: #fff;
     margin: 0;
+    font-family: 'Roboto';
   }
 
   .custom-scrollbar::-webkit-scrollbar {
