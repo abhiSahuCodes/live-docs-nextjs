@@ -17,9 +17,8 @@ const CollaborativeRoom = ({
   roomId,
   roomMetadata,
   users,
-  currentUserType
+  currentUserType,
 }: CollaborativeRoomProps) => {
-
   const [documentTitle, setDocumentTitle] = useState(roomMetadata.title);
   const [editing, setEditing] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -30,14 +29,14 @@ const CollaborativeRoom = ({
   const updateTitleHandler = async (
     e: React.KeyboardEvent<HTMLInputElement>
   ) => {
-    if(e.key === 'Enter') {
+    if (e.key === "Enter") {
       setLoading(true);
 
       try {
-        if(documentTitle !== roomMetadata.title) {
+        if (documentTitle !== roomMetadata.title) {
           const updatedDocument = await updateDocument(roomId, documentTitle);
-          
-          if(updatedDocument) {
+
+          if (updatedDocument) {
             setEditing(false);
           }
         }
@@ -107,14 +106,20 @@ const CollaborativeRoom = ({
                   className="pointer"
                 />
               )}
+
+              {currentUserType !== "editor" && !editing && (
+                <p className="view-only-tag">View only</p>
+              )}
+
+              {loading && <p className="text-sm text-gray-400">saving...</p>}
             </div>
             <div className="flex w-full flex-1 justify-end gap-2 sm:gap-3">
               <ActiveCollborators />
-              <ShareModal 
-              roomId={roomId}
-              collaborators={users}
-              creatorId={roomMetadata.creatorId}
-              currentUserType={currentUserType}
+              <ShareModal
+                roomId={roomId}
+                collaborators={users}
+                creatorId={roomMetadata.creatorId}
+                currentUserType={currentUserType}
               />
               <SignedOut>
                 <SignInButton />
