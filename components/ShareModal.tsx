@@ -56,12 +56,12 @@ const ShareModal = ({
           <Image
             src="/assets/icons/share.svg"
             alt="share"
-            width={24}
-            height={24}
+            width={20}
+            height={20}
             className="min-w-4 md:size-5"
           />
+          <p className="mr-1 hidden sm:block">Share</p>
         </Button>
-        <p className="mr-1 hidden sm:block">Share</p>
       </DialogTrigger>
       <DialogContent className="shad-dialog">
         <DialogHeader>
